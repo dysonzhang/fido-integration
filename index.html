@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>IdentityX FIDO Integration Documentation</title>
+    <script src='lib/jquery.js' type='text/javascript'></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- highlight - view JSON all nice -->
+    <link href="styles/github.css" rel="stylesheet">
+    <script src='lib/highlight.js' type='text/javascript'></script>
+    <!-- initialize the highlighter -->
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet" />
+    <link href='css/standalone.css' rel='stylesheet' />
+    <link href='css/api-explorer.css' rel='stylesheet' type='text/css' />
+    <link href='css/doco.css' rel='stylesheet' type='text/css' />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <header class="site-header">
+        <nav role="navigation" class="navbar navbar-default">
+            <div class="container">
+                <!--  <div class="navbar-header">
+                    <button type="button" data-toggle="collapse" data-target="#navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <h1 class="navbar-brand"><a href="/"><span>Auth0</span></a></h1><a href="https://auth0.com/jobs" class="hiring animated bounce hidden-sm hidden-xs hidden-md">We're hiring!</a></div> -->
+                <div class="navbar-header">
+                    <button type="button" data-toggle="collapse" data-target="#navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <h1 class="navbar-brand"><a href="index.html"><span>IdentityX FIDO Integration Documentation</span></a></h1>
+                </div>
+                <div id="navbar-collapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="li-docs"><a href="#menu-toggle" id="menu-toggle">Menu</a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <script>
+    hljs.initHighlightingOnLoad();
+    </script>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <!-- <a href="#">API Documentation</a> -->
+                    Integration Documentation 
+                </li>
+                <li>
+                    <a href="#introduction">Overview</a>
+                </li>
+                <li>
+                    <a href="#baseurl">Using the Admin Console</a>
+                </li>
+                <li>
+                    <a href="#authentication">Programmatic Integration with IdentityX</a>
+                </li>
+                <li>
+                    <a href="#versioning">Creating Entities</a>
+                </li>
+                <li>
+                    <a href="#pagination">Registration</a>
+                </li>              
+                <li>
+                    <a href="#expanding">Authentication</a>
+                </li>
+                <li>
+                    <a href="#search">De-registering an Authenticator</a>
+                </li>
+                <li>
+                    <a href="#sorting">Authentication & Transaction Confirmation</a>
+                </li>
+                <li>
+                    <a href="#links">Running the Sample Application</a>
+                </li>
+                <li>
+                    <a href="#expanding">Common Errors</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid docs-content">
+
+<!-- OVERVIEW -->
+                <a name="overview"></a>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Overview</h1>
+                        <p>The purpose of this document is to describe how to integrate with the IdentityX Server to enable FIDO authentication options to a Relying Party Server Application (RPSA).</p>
+                        <p>Figure 1 - FIDO Solution with IdentityX shows the high level architecture of a Relying Party Server Application (RPSA) using IdentityX to support FIDO authentication.</p>
+						<p>The diagram shows two possible options for using FIDO on the device (PC, tablet or smartphone):</p>
+                    </div>
+                </div>
+<!-- OVERVIEW END -->
+
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="lib/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap.min.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</body>
+
+</html>
