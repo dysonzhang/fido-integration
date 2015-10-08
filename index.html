@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="How to integrate with IdentityX UAF Server">
+    <meta name="author" content="Daon">
     <title>IdentityX FIDO Integration Documentation</title>
     <script src='lib/jquery.js' type='text/javascript'></script>
     <!-- Bootstrap Core CSS -->
@@ -27,6 +27,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<link rel="shortcut icon" href="images/favicon.ico" />
 </head>
 
 <body>
@@ -108,8 +109,8 @@
 						<h2>1.2 IdentityX Class Model</h2>
 						<p>Figure 2 - IdentityX Class Model shows the core classes (or entities) within IdentityX and the relationships between them with UML class notation</p>
 						<center>
-							<a href="/images/large/IdentityX_Class_Model.png">
-							<img src="/images/IdentityX_Class_Model.png">
+							<a href="images/large/IdentityX_Class_Model.png">
+							<img src="images/IdentityX_Class_Model.png">
 							</a>
 							<figcaption>Figure 2 - IdentityX Class Model (click to enlarge)</figcaption>
 						</center>
@@ -179,8 +180,8 @@
 						<h2>2.2 Creating an Application in IdentityX</h2>
 						<p>To create a FIDO Application and manage the FIDO Facet IDs, logon to the IdentityX Admin Console.  Navigate to the “Applications” and select “Create Application”:</p>
 						<center>
-							<a href="/images/large/Create_Application_Form.png">
-							<img style="border:1px solid black" src="/images/Create_Application_Form.png">
+							<a href="images/large/Create_Application_Form.png">
+							<img style="border:1px solid black" src="images/Create_Application_Form.png">
 							</a>
 							<figcaption>Figure 3: Create Application Form (click to enlarge)</figcaption>
 						</center>
@@ -193,15 +194,15 @@
 						<p>Please note the <em>“Application ID”</em> of the Application.</p>
 						<p>Next navigate to the “Facets” Tab which is on the left of the details view of the Application as show in Figure 4 - Selecting Facets.</p>
 						<center>
-							<a href="/images/large/Selecting_Facets.png">
-							<img style="border:1px solid black" src="/images/Selecting_Facets.png">
+							<a href="images/large/Selecting_Facets.png">
+							<img style="border:1px solid black" src="images/Selecting_Facets.png">
 							</a>
 							<figcaption>Figure 4:  Selecting Facets (click to enlarge)</figcaption>
 						</center>
 						<p>Once “Facets” is selected, click “Create Facet” to create a new Facet. The dialog as shown in Figure 5 - Creating a Facet will appear.</p>
 						<center>
-							<a href="/images/large/Creating_a_Facet.png">
-							<img style="border:1px solid black" src="/images/Creating_a_Facet.png">
+							<a href="images/large/Creating_a_Facet.png">
+							<img style="border:1px solid black" src="images/Creating_a_Facet.png">
 							</a>
 							<figcaption>Figure 5: Creating a Facet (click to enlarge)</figcaption>
 						</center>
@@ -241,15 +242,15 @@
 						<p>IdentityX maintains a list of Authenticator Types and this list must be kept current as IdentityX will only allow the use of FIDO authenticators of which it is aware.  To add (or manage) a FIDO Authenticator Type, logon to the FIDO Admin Console and navigate to “Administration / Authenticator Types”.</p>
 						<p>Here there are two options to “Create” or “Import”.  It is worth selecting the “Import” button to see if the instance of IdentityX has the required Authenticator Type.  If it is in the list of authenticator types, simply click import on the required type.</p>
 						<center>
-							<a href="/images/large/Importing_an_Authenticator_Type.png">
-							<img style="border:1px solid black" src="/images/Importing_an_Authenticator_Type.png">
+							<a href="images/large/Importing_an_Authenticator_Type.png">
+							<img style="border:1px solid black" src="images/Importing_an_Authenticator_Type.png">
 							</a>
 							<figcaption>Figure 6: Importing an Authenticator Type (click to enlarge)</figcaption>
 						</center>
 						<p>Creating a new Authenticator Type from scratch requires access to the Authenticator Type meta-data in JSON format (as published by the FIDO Alliance).  To create a new Authenticator, simply click “Create”.</p>
 						<center>
-							<a href="/images/large/Create_a_new_Authenticator_Type.png">
-							<img style="border:1px solid black" src="/images/Create_a_new_Authenticator_Type.png">
+							<a href="images/large/Create_a_new_Authenticator_Type.png">
+							<img style="border:1px solid black" src="images/Create_a_new_Authenticator_Type.png">
 							</a>
 							<figcaption>Figure 7:  Create a new Authenticator Type (click to enlarge)</figcaption>
 						</center>
@@ -260,15 +261,15 @@
 						<p>A registration policy determines which authenticator types a user may register.  This allows the organization to ensure that only approved authenticator types which conform to the organization’s security policy are registered.</p>
 						<p>To create a registration policy, select the Application just added in Section 2.2 and select the “Policies” tab on the left.  Next click the “Create Policy” button, selecting “FIDO Registration” from the drop down list shown when “Create Policy” is clicked.</p>
 						<center>
-							<a href="/images/large/Create_the_Registration_Policy.png">
-							<img style="border:1px solid black" src="/images/Create_the_Registration_Policy.png">
+							<a href="images/large/Create_the_Registration_Policy.png">
+							<img style="border:1px solid black" src="images/Create_the_Registration_Policy.png">
 							</a>
 							<figcaption>Figure 8:  Create the Registration Policy (click to enlarge)</figcaption>
 						</center>
 						<p>Enter a unique Policy ID and the description can be left blank.  Next click on the “Authenticator Types” tab and click “Add Allowed Group”.</p>
 						<center>
-							<a href="/images/large/Add_an_Authenticator_Type_Group.png">
-							<img style="border:1px solid black" src="/images/Add_an_Authenticator_Type_Group.png">
+							<a href="images/large/Add_an_Authenticator_Type_Group.png">
+							<img style="border:1px solid black" src="images/Add_an_Authenticator_Type_Group.png">
 							</a>
 							<figcaption>Figure 9:  Add an Authenticator Type Group (click to enlarge)</figcaption>
 						</center>
@@ -277,8 +278,8 @@
 						<p>Once the Authenticator Type has been added, click “Save” to accept this Authenticator Type as an acceptable stand-alone Authenticator Type.</p>
 						<p><strong>NOTE:</strong> If more than one Authenticator Type is added to an Allowed Group then the user must register both Authenticator Types <em>at the same time, on the same device!</em>  This represents the concept of AND for Authenticator Types i.e. an Allowed Group means the first authenticator type in the group AND the second authenticator type AND the third authenticator type etc.  The concept of OR is represented by having multiple Allowed Groups i.e. the authenticator type in the first group OR the authenticator types in the second group OR the authenticator types in the third group, etc.</p>
 						<center>
-							<a href="/images/large/Sample_Registration_Policy.png">
-							<img style="border:1px solid black" src="/images/Sample_Registration_Policy.png">
+							<a href="images/large/Sample_Registration_Policy.png">
+							<img style="border:1px solid black" src="images/Sample_Registration_Policy.png">
 							</a>
 							<figcaption>Figure 10:  Sample Registration Policy (click to enlarge)</figcaption>
 						</center>
@@ -311,8 +312,8 @@
 						<h3>2.6.3	Create the Token</h3>
 						<p>To create a token, logon to the Administration console and select the “Tokens” item under “Administration” and click “Create Permanent Token”.  The following screen will appear.</p>
 						<center>
-							<a href="/images/large/Create_New_Token.png">
-							<img style="border:1px solid black" src="/images/Create_New_Token.png">
+							<a href="images/large/Create_New_Token.png">
+							<img style="border:1px solid black" src="images/Create_New_Token.png">
 							</a>
 							<figcaption>Figure 11:  Create New Token (click to enlarge)</figcaption>
 						</center>
@@ -330,8 +331,8 @@
 						</ul>
 						<p>The screen should be similar to that displayed in Figure 12 - Creating the New Token.</p>
 						<center>
-							<a href="/images/large/Creating_the_New_Token.png">
-							<img style="border:1px solid black" src="/images/Creating_the_New_Token.png">
+							<a href="images/large/Creating_the_New_Token.png">
+							<img style="border:1px solid black" src="images/Creating_the_New_Token.png">
 							</a>
 							<figcaption>Figure 12:  Creating the New Token (click to enlarge)</figcaption>
 						</center>
@@ -364,8 +365,8 @@
 						<p>Figure 13 - Class Model after Administration Console shows the state of the entity model after creating the entities in the Admin Console.  </p>
 						<p>The items in green were created through the UI and the entities in blue will be created programmatically.  However to create the entities in blue, it will be necessary to programmatically locate or find the green entities within IdentityX.  This section describes how to locate these entities.</p>
 						<center>
-							<a href="/images/large/Class_Model_after_Creating_Entities_in_Admin_Console.png">
-							<img src="/images/Class_Model_after_Creating_Entities_in_Admin_Console.png">
+							<a href="images/large/Class_Model_after_Creating_Entities_in_Admin_Console.png">
+							<img src="images/Class_Model_after_Creating_Entities_in_Admin_Console.png">
 							</a>
 							<figcaption>Figure 13:  Class Model after Creating Entities in Admin Console (click to enlarge)</figcaption>
 						</center>
@@ -530,8 +531,8 @@ public Policy findPolicy(String policyId) throws IdxRestException {
 						
 						<h2>4.1	Class Model - Users and Registrations</h2>
 						<center>
-							<a href="/images/large/Class_Model_Users_and_Registrations.png">
-							<img src="/images/Class_Model_Users_and_Registrations.png">
+							<a href="images/large/Class_Model_Users_and_Registrations.png">
+							<img src="images/Class_Model_Users_and_Registrations.png">
 							</a>
 							<figcaption>Figure 14:  Class Model – Users and Registrations (click to enlarge)</figcaption>
 						</center>
@@ -780,15 +781,15 @@ protected void archiveRegistration(User user, String registrationId) throws IdxR
 
 						<h2>5.1	Class Model - Registration Challenges and Authenticators</h2>
 						<center>
-							<a href="/images/large/Class_Model_Registration_Challenges_and_Authenticators.png">
-							<img src="/images/Class_Model_Registration_Challenges_and_Authenticators.png">
+							<a href="images/large/Class_Model_Registration_Challenges_and_Authenticators.png">
+							<img src="images/Class_Model_Registration_Challenges_and_Authenticators.png">
 							</a>
 							<figcaption>Figure 15: Class Model – Registration Challenges and Authenticators (click to enlarge)</figcaption>
 						</center>
 						<p>However, creating the entities within IdentityX is not sufficient.  There needs to be a corresponding interaction with a FIDO Client and authenticator on the user’s device.  The sequence of operations involved is shown in Figure 16 - Registration Process.</p>
 						<center>
-							<a href="/images/large/Registration_Process.png">
-							<img src="/images/Registration_Process.png">
+							<a href="images/large/Registration_Process.png">
+							<img src="images/Registration_Process.png">
 							</a>
 							<figcaption>Figure 16: Registration Process (click to enlarge)</figcaption>
 						</center>
@@ -924,16 +925,16 @@ public RegistrationChallenge processRegistrationResponse(String regChallengeHref
 						<p>This involves the creation of an <em>AuthenticationRequest</em> and an <em>AuthenticationResponse</em> as shown in Figure 17 - Class Model - Authentication Request & Authentication . </p>
 						<h2>6.1	Class Model - Authentication Request & Authentication Response</h2>
 						<center>
-							<a href="/images/large/Class_Model_Authentication_Request_and_Authentication_Attempt.png">
-							<img src="/images/Class_Model_Authentication_Request_and_Authentication_Attempt.png">
+							<a href="images/large/Class_Model_Authentication_Request_and_Authentication_Attempt.png">
+							<img src="images/Class_Model_Authentication_Request_and_Authentication_Attempt.png">
 							</a>
 							<figcaption>Figure 17: Class Model – Authentication Request & Authentication Attempt (click to enlarge)</figcaption>
 						</center>
 						<p>However, creating the entities within IdentityX is not sufficient.  There needs to be a corresponding interaction with a FIDO Client and Authenticator on the user’s device.  The sequence of operations involved is shown in Figure 18 - Authentication Process.</p>
 						<p>The sections below describe the integration with IdentityX to support the creation of the <em>AuthenticationRequest</em> and the <em>AuthenticationAttempt</em>.  The Sample Android Relying Party App and Sample Relying Party Server Application provide an end to end implementation of this sequence.</p>
 						<center>
-							<a href="/images/large/Authentication_Process.png">
-							<img src="/images/Authentication_Process.png">
+							<a href="images/large/Authentication_Process.png">
+							<img src="images/Authentication_Process.png">
 							</a>
 							<figcaption>Figure 18:  Authentication Process (click to enlarge)</figcaption>
 						</center>
@@ -1627,12 +1628,12 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<h3>9.2.2	Running the App</h3>
 						<p>The App can now be run from Android Studio and once started, the following screen should be displayed:</p>
 						<center>
-							<img src="/images/Sample_RPApp_Intro_Screen.png">
+							<img src="images/Sample_RPApp_Intro_Screen.png">
 							<figcaption>Figure 19: Sample RPApp – Intro Screen</figcaption>
 						</center>
 						<p>In order to connect to the Sample Relying Party Server Application, the details of the server must be provided.  Click on the menu button and select <em>“SETTINGS”</em>.  The following screen should appear:  </p>
 						<center>
-							<img src="/images/Sample_RPApp_Settings_Screen.png">
+							<img src="images/Sample_RPApp_Settings_Screen.png">
 							<figcaption>Figure 20: Sample RPApp – Settings Screen</figcaption>
 						</center>
 						<p>Select <strong>URL</strong> and enter the IP Address or the DNS name of the server running the Sample Relying Party Server Application.  Then select <strong>Port</strong> and enter the appropriate port.  If the server is running under TLS, enable the <strong>“Secure Connection (https)”</strong> check box.</p>
@@ -1645,7 +1646,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<h3>9.2.4	Creating a New Account</h3>
 						<p>To create a new user, touch the <strong>“New Account”</strong> button.  The following screen will appear:</p>
 						<center>
-							<img src="/images/Sample_RPApp_Sign_Up_Screen.png">
+							<img src="images/Sample_RPApp_Sign_Up_Screen.png">
 							<figcaption>Figure 21: Sample RPApp – Sign Up Screen</figcaption>
 						</center>
 						<p><strong>NOTE:</strong>  The <strong>“Register with FIDO”</strong> check box will only be available if there is at least one FIDO client on the device and there are FIDO authenticators available.</p>
@@ -1654,7 +1655,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<p>Once the <em>Account</em> is created, if the request requests a FIDO registration, then a request is made to IdentityX to create a <em>User</em> there representing the <em>Account</em> in the Relying Party Server Application.  That <em>User</em> is registered to the <em>Application</em> and a <em>RegistrationChallenge</em> is created for the User based on the FIDO Registration Policy (specified in the <em>fido_config.properties</em>).  The RPSA will then return a <em>fidoRegistrationChallenge</em> to the RPApp which will invoke the FIDO client.</p>
 						<p>Assuming there is a suitable authenticator on the device to support the registration request, a screen similar to Figure 22 - Authentication Screen from Samsung S6 is shown to the user.</p>
 						<center>
-							<img src="/images/Authentication_Screen_from_Samsung_S6.png">
+							<img src="images/Authentication_Screen_from_Samsung_S6.png">
 							<figcaption>Figure 22:  Authentication Screen from Samsung S6</figcaption>
 						</center>
 						<p>Once the user’s fingerprint is verified, a FIDO registration response is returned to the RPApp which calls the RPSA with the <em>fidoRegistrationResponse</em> and the identifier of the <em>RegistrationChallenge</em> (this is the <em>CreateAuthenticator</em> request). </p>
@@ -1662,13 +1663,13 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<p>The RPSA calls IdentityX updating the original <em>RegistrationChallenge</em> with the <em>fidoRegistrationResponse</em>.   Assuming a successful outcome, the IdentityX server responds with a <em>fidoRegistrationConfirmation</em>, a <em>fidoResponseCode</em> and a <em>fidoResponseMessage</em>.  These are relayed from the RPSA to the RPApp which calls the FIDO client.  This closes the loop in the registration process and “commits” the registration with the FIDO client and authenticator.</p>
 						<p>Once all this is complete an <em>Account</em> has been created for the user and a FIDO Authenticator may be registered for the user.  The user’s screen should switch to the Home screen as shown below.</p>
 						<center>
-							<img src="/images/Sample_RPApp_Home_Screen.png">
+							<img src="images/Sample_RPApp_Home_Screen.png">
 							<figcaption>Figure 23: Sample RPApp – Home Screen</figcaption>
 						</center>
 						<p>To see the FIDO Authenticator, the administrator may logon to the IdentityX Admin Console and search for the user.  The screen shown in Figure 24 - Authentication Requests in the Admin Console shows a list of authentication requests for a user.</p>
 						<center>
-							<a href="/images/large/Authentication_Requests_in_the_Admin_Console.png">
-							<img style="border:1px solid black" src="/images/Authentication_Requests_in_the_Admin_Console.png">
+							<a href="images/large/Authentication_Requests_in_the_Admin_Console.png">
+							<img style="border:1px solid black" src="images/Authentication_Requests_in_the_Admin_Console.png">
 							</a>
 							<figcaption>Figure 24: Authentication Requests in the Admin Console (click to enlarge)</figcaption>
 						</center>
@@ -1676,7 +1677,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<h3>9.2.5	Authenticators</h3>
 						<p>From the <strong>Home</strong> screen touch the <strong>“Authenticators”</strong> button and the following screen will appear with the details of registered authenticators for that account.  The list will show all active and inactive authenticators.</p>
 						<center>
-							<img src="/images/Sample_RPApp_Authenticators_Screen.png">
+							<img src="images/Sample_RPApp_Authenticators_Screen.png">
 							<figcaption>Figure 25: Sample RP App – Authenticators Screen</figcaption>
 						</center>
 						<p>From this screen it is possible to register a new authenticator or deregister an existing authenticator.</p>
@@ -1685,7 +1686,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<p>To register a new authenticator, touch the <strong>“Register”</strong> button.  The RPApp will send a <em>CreateRegRequest</em> to the RPSA .  The RPSA will validate the <em>session</em> and retrieve the <em>Account</em> details associated with the Session from the database.  It will then determine if there is a <em>User</em> in IdentityX associated with the <em>Account</em>.  If there is not, a new <em>User</em> and <em>Registration</em> will be created.  Once the <em>User</em> and <em>Registration</em> are in place, a new <em>RegistrationChallenge</em> will be created in IdentityX with the FIDO registration policy indicated by the RPSA .  The <em>href</em> of the <em>RegistrationChallenge</em> and the <em>fidoRegistrationRequest</em> will be returned to the RPSA and from there to the RPApp.  The RPApp will in turn invoke the FIDO client with the <em>fidoRegistrationRequest</em>.</p>
 						<p>Assuming there is a suitable authenticator on the device to support the registration request, a screen similar to that shown in Figure 26 (the Registration screen shown on a Samsung Galaxy S6) is shown to the user:</p>
 						<center>
-							<img src="/images/Sample_Galaxy_S6_Registration_Screen.png">
+							<img src="images/Sample_Galaxy_S6_Registration_Screen.png">
 							<figcaption>Figure 26:  Samsung Galaxy S6 Registration screen</figcaption>
 						</center>
 						<p>Once the user’s identity is verified, a <em>fidoRegistrationResponse</em> is returned to the RPApp which calls the RPSA with the <em>fidoRegistrationResponse</em> and the <em>href</em> of the <em>RegistrationChallenge</em> in a <em>CreateAuthenticator</em> request. </p>
@@ -1772,7 +1773,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<p>The FIDO Alliance specifications allow users to view messages from the server and confirm those messages during the authentication process.  IdentityX supports authentication transactions but FIDO Authenticators are not required to support transaction confirmation.</p>
 						<p>From the <strong>“Home”</strong> screen, touch <strong>“Transactions”</strong>.  The Sample RP App - Transactions Screen will be shown:</p>
 						<center>
-							<img src="/images/Sample_RPApp_Transactions_Screen.png">
+							<img src="images/Sample_RPApp_Transactions_Screen.png">
 							<figcaption>Figure 27:  Sample RP App – Transactions Screen</figcaption>
 						</center>
 						<p>Section 7 describes the four different types of authentications which are supported in the FIDO UAF Specifications.  The screen allows the user to test each of these authentication types.</p>
@@ -1866,7 +1867,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
 						<p><strong>Response:</strong> With these settings, if the device has an authenticator which support image based transaction confirmation, then the image is displayed to the user during the authentication process. The authenticators should not ask for the user’s persona as the authentication request is created for the specific user.</p>
 
 						<center>
-							<img src="/images/Sample_RPApp_the_setting_for_Transaction_Confirmation.png">
+							<img src="images/Sample_RPApp_the_setting_for_Transaction_Confirmation.png">
 							<figcaption>Figure 28: Sample RP App – the setting for Transaction Confirmation</figcaption>
 						</center>
 					</div>
