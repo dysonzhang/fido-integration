@@ -28,6 +28,7 @@
     margin-left: -250px;
     overflow-y: auto;
     background: #f8f8f9;
+    background: #000000;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -71,7 +72,7 @@
     text-decoration: none;
     color: #333;
     font-weight: 700;
-    color: #333;
+    color: #FFFFFF;
     border-top: 1px solid #e8eaeb;
     padding-top: 15px;
 }
@@ -79,7 +80,6 @@
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #9da2a8;
-    background: rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-nav li a:active,
@@ -88,11 +88,13 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 40px;
+    height: 73px;
     font-size: 18px;
     line-height: 40px;
     font-weight: bolder;
     font-family: sans-serif;
+	color: #000000;
+	background-image: url('../images/IdentityX_Logo_250.png');
 }
 
 .sidebar-nav > .sidebar-brand a {

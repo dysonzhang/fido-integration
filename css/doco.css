@@ -1,3 +1,7 @@
+#page-content-wrapper {
+	background: #fcfcfc;
+}
+
 .docs-content {
     padding: 30px 10px 60px;
     -webkit-font-smoothing: antialiased;
@@ -5,6 +9,7 @@
     font-family: proxima-nova, "Helvetica Neue", sans-serif;
     color: #5c666f;
     font-size: 14px;
+	max-width: 800px;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -37,6 +42,16 @@
 
 .docs-content h2 {
     font-family: proxima-nova, "Helvetica Neue", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.3;
+    -webkit-font-smoothing: antialiased;
+    padding-left: 20px;
+}
+
+.docs-content h3 {
+    font-family: proxima-nova, "Helvetica Neue", sans-serif;
     font-size: 18px;
     font-weight: 700;
     color: #333;
@@ -44,7 +59,17 @@
     -webkit-font-smoothing: antialiased;
     padding-left: 20px;
 }
-}
+
+.docs-content h4 {
+    font-family: proxima-nova, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.3;
+    -webkit-font-smoothing: antialiased;
+    padding-left: 20px;
+}}
+
 
 .sidebar-nav li {
     font-family: proxima-nova, "Helvetica Neue", sans-serif;
@@ -62,4 +87,18 @@ p,
 pre {
     margin: 20px 0;
     padding-left: 20px;
+}
+
+.docs-content figcaption {
+    font-weight: 700;
+}
+
+.docs-content table thead {
+	background: #002060;
+	color: #ffffff;
+    font-weight: 700;
+}
+
+.textIndent {
+	text-indent: 50px;
 }
