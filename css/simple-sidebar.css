@@ -67,6 +67,11 @@
     line-height: 10px;
 }
 
+.sidebar-nav li a.lastItem {
+    border-bottom: 1px solid #e8eaeb;
+    padding-bottom: 15px;
+}
+
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
@@ -89,14 +94,14 @@
 
 .sidebar-nav > .sidebar-brand {
     height: 70px;
-	margin-left: 5px;
+    margin-left: 5px;
     font-size: 18px;
     line-height: 40px;
     font-weight: bolder;
     font-family: sans-serif;
-	background: #343131;
-	background-repeat: no-repeat;
-	background-image: url('../images/IdentityX_Logo_240.png');
+    background: #343131;
+    background-repeat: no-repeat;
+    background-image: url('../images/IdentityX_Logo_240.png');
 }
 
 .sidebar-nav > .sidebar-brand a {
