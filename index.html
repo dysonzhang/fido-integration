@@ -68,7 +68,10 @@
                     <a href="#sampleApplication">9. Sample Application</a>
                 </li>
                 <li>
-                    <a href="#commonErrors" class="lastItem">10. Common Errors</a>
+                    <a href="#commonErrors">10. Common Errors</a>
+                </li>
+                <li>
+                    <a href="#otherFIDOServers" class="lastItem">11. Other FIDO Servers</a>
                 </li>
             </ul>
         </div>
@@ -2006,6 +2009,17 @@ Caused by: java.lang.RuntimeException: An exception occurred while attempting to
                             </div>
                         </div>
                         <!-- COMMON ERRORS -->
+                        <!-- OTHER FIDO SERVERS -->
+                        <a name="otherFIDOServers"></a>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1>11. Other FIDO Servers</h1>
+                                <h2>11.1    FIDO Alliance UAF Specifications</h2>
+                                <p>The FIDO Alliance UAF Specifications define the format of the messages which go between the FIDO Client and the FIDO Server.  The specifications do not determine how these messages are sent to a FIDO Server by a Relying Party.  This is an important distinction as the FIDO Alliance did not want to create a “Server API” and thus impose technology constraints on the FIDO Server implementers thus allowing them to select the most appropriate communications protocols, security schemes etc. to meet their requirements.</p>
+                                <h2>11.2    Other FIDO Server Implementations</h2>
+                                <p>In this document, the IdentityX server interface is described.  This is Daon's proprietary interface to IdentityX.  To use the Relying Party Server Application with a different FIDO Server, the code of the RPSA will need to be updated to integrate with the interface to the new FIDO Server.</p>
+							</div>
+                        </div>
                     </div>
                     <center><strong>© 2015 Daon Holdings Limited. All rights reserved.</strong></center>
                 </div>
