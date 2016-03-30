@@ -240,7 +240,8 @@
                                 </tbody>
                             </table>
                         </center>
-                        <p><strong>NOTE:</strong> There may be zero or more entries for each source allowing multiple web sites, Android or iOS apps to be associated with the same application (AppID).</p>
+                        <p><strong>NOTE 1:</strong> There may be zero or more entries for each source allowing multiple web sites, Android or iOS apps to be associated with the same application (AppID).</p>
+                        <p><strong>NOTE 2:</strong> If the facets are updated while the FIDO Relying Party Server Application is running, then the FIDO Relying Party Server Application must be restarted as the facets are cached by the Relying Party Server Application.</p>
                         <h2>2.3 Creating an Authenticator Type</h2>
                         <p>IdentityX maintains a list of Authenticator Types and this list must be kept current as IdentityX will only allow the use of FIDO authenticators of which it is aware. To add (or manage) a FIDO Authenticator Type, logon to the IdentityX Admin Console and navigate to “Administration / Authenticator Types”.</p>
                         <p>Here there are two options to “Create” or “Import”. It is worth selecting the “Import” button to see if the instance of IdentityX has the required Authenticator Type. If it is in the list of Authenticator Types, simply click import on the required type.</p>
@@ -1594,6 +1595,8 @@ Add the following facet to the Facets file in order for the debug app to be trus
                                 </tbody>
                             </table>
                         </center>
+						<p><strong>NOTE:</strong> If the facets are updated while the FIDO Relying Party Server Application is running, then the FIDO Relying Party Server Application must be restarted as the facets are cached by the Relying Party Server Application.</p>
+
                         <h3>9.2.2   Running the App</h3>
                         <p>The App can now be run from Android Studio and once started, the following screen should be displayed:</p>
                         <center>
