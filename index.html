@@ -97,7 +97,7 @@
                         <p>The diagram shows two possible options for using FIDO on the device (PC, tablet or smartphone):</p>
                         <ol>
                             <li><strong>Platform Specific App:</strong> A FIDO enabled Relying Party App (RPApp) runs on the user’s device and that app communicates across the network with the Relying Party Server (RPSA) and that app also communicates with the FIDO client through the published platform specific FIDO inter-process communications protocols.</li>
-                            <li><strong>Web Application: </strong> The web pages from the FIDO enabled Web App run within a FIDO enabled browser on the user’s device. The browser communicates across the network with the Relying Party Server Application (RPSA) and the Web App communicates with the browser’s FIDO client through the published DOM interface. Unfortunately at this time (October 2015), there are no publicly available web browsers which support the FIDO UAF DOM interface.</li>
+                            <li><strong>Web Application: </strong> The web pages from the FIDO enabled Web App run within a FIDO enabled browser on the user’s device. The browser communicates across the network with the Relying Party Server Application (RPSA) and the Web App communicates with the browser’s FIDO client through the published DOM interface. Unfortunately at this time, there are no publicly available web browsers which support the FIDO UAF DOM interface.</li>
                         </ol>
                         <p>While these are the two most commonly expected options for the use of FIDO on a device, other options are possible, for example, where the Relying Party App includes the FIDO Client and Authenticator or where the Relying Party App includes just the FIDO Authenticator. </p>
                         <p>This document focuses on the communication between the Relying Party Server and the IdentityX server for the purposes of:</p>
@@ -123,7 +123,7 @@
                             <li>An <strong>Application</strong> entity corresponding to the Relying Party Server Application. IdentityX supports more than one application thus enabling multiple external Relying Party Server Applications all connecting to the same IdentityX system.</li>
                             <li>At least one <strong>Authenticator Type</strong> entity corresponding to a class of FIDO authenticator. From the FIDO specification:
                                 <p><i>“A FIDO Authenticator is responsible for user verification, and maintaining the cryptographic material required for the relying party authentication."</i></p>
-                                Each FIDO Authenticator has an Authenticator Attestation ID (AAID) which uniquely identifies the “class" or “type" of authenticator. In IdentityX, the Authenticator Type is the entity which holds all the information related to the AAID. Only FIDO Authenticators with types known to IdentityX can be used by IdentityX.
+                                Each FIDO Authenticator has an Authenticator Attestation ID (AAID) which uniquely identifies the “class" or “type" of authenticator. In IdentityX, the Authenticator Type is the entity which holds all the metadata related to the Authenticator.
                             </li>
                             <li>A <strong>Registration Policy</strong> entity specifying the acceptable (and unacceptable) Authenticator Types which may be registered by a user.</li>
                             <li>An <strong>Authentication Policy</strong> entity specifying the acceptable (and unacceptable) Authenticator Types which may be used to satisfy an authentication by a user.</li>
@@ -138,8 +138,8 @@
                         <h2>1.3 FIDO Authenticators, Authenticator Types and Authenticators</h2>
                         <p>The distinction between FIDO Authenticators (as defined by the FIDO Specification), Authenticator Types and Authenticators may not be initially clear. The FIDO Specification does not draw a distinction between the class of an Authenticator and instances of that Authenticator.</p>
                         <ul style="list-style-type:circle">
-                            <li><strong>Authenticator Type:</strong> In IdentityX, Authenticator Type refers to the class of an Authenticator e.g. the Samsung Galaxy S6 fingerprint authenticator is a <em>class</em> of FIDO Authenticator. An Authenticator Type, like a FIDO Authenticator is defined by its AAID and associated Meta-data.</li>
-                            <li><strong>Authenticator:</strong> In IdentityX, Authenticator refers to an instance of an Authenticator Type for example, the fingerprint authenticator on Tom’s Samsung Galaxy S6 phone is an Authenticator in IdentityX. Every Authenticator in IdentityX has an associated Authenticator Type.</li>
+                            <li><strong>Authenticator Type:</strong> In IdentityX, Authenticator Type refers to the class of an Authenticator, for example, the Samsung Galaxy S6 fingerprint authenticator is an Authenticator Type. The Fujitsu Arrows NX Iris Authenticator is another Authenticator Type. The Authenticator Type contains the metadata about that Authenticator, such as the AAID, keyProtection and transaction confirmation configuration.</li>
+                            <li><strong>Authenticator:</strong> In IdentityX, Authenticator refers to a specific instance of an Authenticator Type associated with an application. For example, say Joe Bloggs owns both a Samsung Galaxy S6 and a Fujitsu Arrows NX device. He registers the Samsung fingerprint authenticator with both myBank.com and buystuff.com. He also registers the Fujitsu Iris Authenticator with myBank.com. These would be represented in IdentityX as three authenticators. Every Authenticator in IdentityX has an associated Authenticator Type.</li>
                         </ul>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                         <p><i>“The AppID is an identifier for a set of different Facets of a relying party's application. The AppID is a URL pointing to the TrustedFacets, that is, list of FacetIDs related to this AppID." </i></p>
                         <p>An example of an AppID would be</p>
                         <p><pre><code>https://fido.companyA.hosting.example.com/SampleApplication/facets</code></pre></p>
-                        <p>At this location, must be hosted a JSON document containing an array of facets as follows:</p>
+                        <p>At this location, a JSON document must be hosted containing an array of facets as follows:</p>
                         <p><pre><code class="json hljs">
 {
   "trustedFacets" : [{
@@ -174,7 +174,7 @@
   }]
 }
                         </code></pre></p>
-                        <p>AppID must be a secure TLS location (https) and production FIDO clients will not accept non TLS locations. In addition the FIDO specification requires that the <strong>Content-Type</strong> associated with the Facet document should be: <strong>“application/fido.trusted-apps+json”</strong>.</p>
+                        <p>The AppID must be a secure TLS location (https) as production FIDO clients will not accept non TLS locations. In addition the FIDO specification requires that the <strong>Content-Type</strong> associated with the Facet document should be: <strong>“application/fido.trusted-apps+json”</strong>.</p>
                         <a name="creatingAnApplication"></a>
                         <h2>2.2 Creating an Application in IdentityX</h2>
                         <p>To create a FIDO Application and manage the FIDO Facet IDs, logon to the IdentityX Admin Console. Navigate to the “Applications” and select “Create Application”:</p>
@@ -188,9 +188,10 @@
                         <p>Enter the following items:</p>
                         <ul style="list-style-type:circle">
                             <li><strong>Application ID</strong> – a unique identifier for the Application</li>
-                            <li><strong>FIDO Application ID</strong> – the URL required to access the list of Facets. The FIDO Specification refers to this as the AppID.</li>
+                            <li><strong>App ID (FIDO)</strong> – enter the URL required to access the list of Facets.  The FIDO Specification refers to this as the AppID. <br></br><strong>OR</strong></li>
+                            <li>Enable <strong>Publish Facets Locally</strong> which will host the facets as part of the server. The AppID is then filled in automatically.  This is useful at development time rather than having to set up a separate server to provide the facets.</li>
                         </ul>
-                        <p>You may enter the other fields, but only these two are required to create an Application.</p>
+                        <p>You may enter the other fields, but only these fields are required to create an Application.</p>
                         <p>Note the <em>“Application ID”</em> of the Application.</p>
                         <p>Next navigate to the “Facets” Tab which is on the left of the details view of the Application as shown in Figure 4 - Selecting Facets.</p>
                         <center>
@@ -252,7 +253,7 @@
                                 <figcaption>Figure 6: Importing an Authenticator Type (click to enlarge)</figcaption>
                             </a>
                         </center>
-                        <p>Creating a new Authenticator Type from scratch requires access to the Authenticator Type meta-data in JSON format (as published by the FIDO Alliance). To create a new Authenticator, simply click “Create”.</p>
+                        <p>Creating a new Authenticator Type from scratch requires access to the Authenticator Type metadata in JSON format (as published by the FIDO Alliance). To create a new Authenticator, simply click “Create”.</p>
                         <center>
                             <a href="#figure7" class="openModal">
                                 <img id="imageresource" src="images/large/Create_a_new_Authenticator_Type.png" style="width: 70%;border:1px solid black">
@@ -260,7 +261,7 @@
                                 <figcaption>Figure 7: Create a new Authenticator Type (click to enlarge)</figcaption>
                             </a>
                         </center>
-                        <p>Enter the name to be given to the Authenticator Type and the vendor name and then click “Browse” to select the JSON file with the meta-data for the Authenticator Type.</p>
+                        <p>Enter the name to be given to the Authenticator Type and the vendor name and then click “Browse” to select the JSON file with the metadata for the Authenticator Type.</p>
                         <p>Once these have been selected, click “Create” to add the Authenticator Type to IdentityX.</p>
                         <h2>2.4 Creating the Registration Policy</h2>
                         <p>A registration policy determines which Authenticator Types a user may register. This allows the organization to ensure that only approved Authenticator Types which conform to the organization’s security policy are registered.</p>
@@ -282,7 +283,7 @@
                         </center>
                         <p>To add an Authenticator Type to the Group, type the name of the Authenticator Type into the dialog box and you will be prompted with a list of matched Authenticator Types.</p>
                         <p>Once the Authenticator Type has been added, click “Save” to accept this Authenticator Type as an acceptable stand-alone Authenticator Type.</p>
-                        <p>Once the Authenticator Type has been added, click “Save” to accept this Authenticator Type as an acceptable stand-alone Authenticator Type.</p>
+                        <p>If you want to accept more than one Authenticator Type, click “Add Allowed Group” again.</p>
                         <p><strong>NOTE:</strong> If more than one Authenticator Type is added to an Allowed Group then the user must register both Authenticator Types <em>at the same time, on the same device!</em> This represents the concept of AND for Authenticator Types that is, an Allowed Group means the first Authenticator Type in the group AND the second Authenticator Type AND the third Authenticator Type, etc. The concept of OR is represented by having multiple Allowed Groups that is, the Authenticator Type in the first group OR the Authenticator Types in the second group OR the Authenticator Types in the third group, etc.</p>
                         <center>
                             <a href="#figure10" class="openModal">
@@ -292,20 +293,21 @@
                             </a>
                         </center>
                         <p>Once all the allowed Authenticator Types have been added to the policy, click “Create” to create the policy.</p>
-                        <p>Note the name of the registration policy.</p>
+                        <p>The new FIDO Registration policy will now appear in the list of policies for the selected application. Note this Registration ‘Policy ID’ as you will need it later when <a href="#programmingIdentityX">Programming IdentityX</a>.</p>
                         <h2>2.5 Creating the Authentication Policy</h2>
                         <p>An Authentication Policy determines which Authenticator Types a user may use in an authentication process. This allows the organization to ensure that only approved Authenticator Types which conform to the organization’s security policy are used to authenticate the user.</p>
+                        <p>To create the authentication policy, select the Application just added in <a href="#creatingAnApplication">Section 2.2</a> and select the “Policies” tab on the left.  Next click the “Create Policy” button, selecting “FIDO Authentication” from the drop down list.</p>
                         <p>The process of creating an Authentication Policy is identical to the process of creating a Registration Policy, so now create an Authentication Policy. The Authentication Policy should contain all or a subset of the Authenticator Types allowed in the corresponding Registration Policy.</p>
-                        <p>Note the name of the Authentication Policy.</p>
+                        <p>Note this Authentication ‘Policy ID’ as you will need it later when <a href="#programmingIdentityX">Programming IdentityX</a>.</p>
                         <p><strong>NOTE:</strong> It is possible to use a registration policy as an Authentication Policy and vice versa. </p>
                         <p></p>
                         <a name="creatingAToken"></a>
                         <h2>2.6 Creating a Token</h2>
                         <p>In order for a Relying Party Server Application to connect to IdentityX it must have a token. A token is a cryptographic key shared between IdentityX and the Relying Party Server Application. The key is used by the Relying Party Server Application to sign the requests to and verify the responses from IdentityX. This is a key security feature of IdentityX and ensures that only properly authenticated applications may send messages to IdentityX.</p>
                         <p>Each token has an associated set of permissions within IdentityX. These permissions determine the capability of the Relying Party Server Application. In addition to verifying the signature on the request from a Relying Party Server Application, IdentityX will check that the token associated with the signature has the appropriate permission to perform the operation on the resource or resources. </p>
-                        <p>To allow the Sample Relying Party Server Application to send requests to IdentityX a new token must be created. A further security feature of IdentityX is that IdentityX will only return a key encrypted under a public key sent during the token creation process. This is to ensure that no man-in-the middle attacks can intercept the token during the process of transfer. Thus to create a token a wrapping key is required.</p>
+                        <p>To allow the Sample Relying Party Server Application to send requests to IdentityX a new token must be created. A further security feature of IdentityX is that IdentityX will only return a key encrypted under a public key sent during the token creation process. This is to ensure that no man-in-the middle attacks can intercept the token during the process of transfer. Therefore to create a token a wrapping key is required.</p>
                         <h3>2.6.1   Create the wrapping key</h3>
-                        <p>To generate the wrapping key, the Java keytool can be used with the following command (note that this does require a modern JDK or JRE to be installed and for unlimited strength security to be applied):</p>
+                        <p>To generate the wrapping key, the Java keytool can be used with the following command (note that this does require a modern JDK or JRE to be installed and the Java Cryptography Extensions (JCE) unlimited strength policy files to be applied):</p>
                         <p><pre><code>keytool -genkeypair -alias identityxCert -keyalg RSA -keysize 2048 -dname "cn=SampleApp,ou=Dev,ou=RP,c=US" -storepass {password1} -keypass {password2} -keystore IdentityXKeyWrapper.jks</code></pre></p>
                         <p><strong>NOTE:</strong> it is not required to provide different passwords to the key store and the key within the key store. This example is provided for completeness. Specifying the password to the storepass will result in the same password being used for both.</p>
                         <h3>2.6.2   Extract the public key (as a cert)</h3>
@@ -327,11 +329,7 @@
                         <ul style="list-style-type:circle">
                             <li>Permission Selector: select the tenant (item in the list under “Tenants”)</li>
                             <li>Entity: select All(*)</li>
-                            <li>CREATE: click the box</li>
-                            <li>READ: click the box</li>
-                            <li>UPDATE: click the box</li>
-                            <li>DELETE: click the box</li>
-                            <li>ALL(*): this will be automatically selected</li>
+                            <li>ALL(*): For all CREATE / READ / UPDATE / DELETE / BLOCK / UNBLOCK permissions</li>
                         </ul>
                         <p>The screen should be similar to that displayed in Figure 12 - Creating the New Token.</p>
                         <center>
@@ -341,7 +339,7 @@
                                 <figcaption>Figure 12: Creating the New Token (click to enlarge)</figcaption>
                             </a>
                         </center>
-                        <p>Click “Submit” to have the token created. When the server responds, a dialog will be displayed where the browser requests a file with a default name of <em>credential.properties</em> be saved. Save the file locally.</p>
+                        <p>Click “Submit” to have the token created. When the server responds, a message will be displayed indicating that a file has been downloaded with a default name of <em>credential.properties</em> to your local Downloads directory for use with the JAVA SDK. Save the file locally.</p>
                         <p>This file (<em>credential.properties</em>) contains a number of important properties which will be used when connecting programmatically to IdentityX. This file should not need to be altered. Here is a description of the fields in the file:</p>
                         <ul style="list-style-type:circle">
                             <li>sharedKeyId – the Id of the token</li>
@@ -375,8 +373,11 @@
                             </a>
                         </center>
                         <h2>3.1 HRef and Resource Identifiers</h2>
-                        <p>All entities within IdentityX have an associated <em>href</em> and <em>id</em>. Generally the <em>href</em> is used in calls to IdentityX to identify the entities. The <em>href</em> is derived from the unique identifier of the entity (the id) and the location of the IdentityX em and the entity type. The following is the format of the <em>href</em>:</p>
+                        <p>All entities within IdentityX have an associated <em>href</em> and <em>id</em>. Generally the <em>href</em> is used in calls to IdentityX to identify the entities. The <em>href</em> is derived from the unique identifier of the entity (the id) and the location of the IdentityX system and the entity type. There are two possible formats of hrefs in the system; vanity and non-vanity. IdentityX is configured to use one or the other. The following examples in this document will use vanity hrefs but could just as easily use non-vanity. The two formats are as follows:</p>
+                        <p><strong>Vanity Format</strong></p>
                         <p><pre><code>scheme://tenant_identifier.sys_dns_identifier/IdentityXServices/rest/v1/entityType/entityIdentifier</code></pre></p>
+                        <p><strong>Non-Vanity Format</strong></p>
+                        <p><pre><code>scheme://sys_dns_identifier/tenant_identifier/IdentityXServices/rest/v1/entityType/entityIdentifier</code></pre></p>
                         <ul style="list-style-type:circle">
                             <li><em>Scheme</em> – http or https</li>
                             <li><em>tenant_identifier</em> – provided by the IdentityX system administrator</li>
@@ -386,7 +387,7 @@
                         </ul>
                         <p><strong>NOTE:</strong> It is <strong>strongly</strong> recommended that if external systems are storing the identifiers of IdentityX entities, that the <em>entityId</em> or <em>id</em> of the entity is stored rather than the href as the <em>href</em> may change over time as the system location and version of IdentityX may change.</p>
                         <h2>3.2 Connecting to IdentityX with Java</h2>
-                        <p>To connect to the IdentityX server using the Java SDK, a <em>TenantRepoFactory</em> object must be created. In order to create this object, the <em>credential.properties</em> file and the Java key store created in <a href="#adminConsole">Section 2 are required.  The code to create the <em>TenantRepoFactory</em> is as follows:</p>
+                        <p>To connect to the IdentityX server using the Java SDK, a <em>TenantRepoFactory</em> object must be created. In order to create this object, the <em>credential.properties</em> file and the Java key store created in <a href="#adminConsole">Section 2</a> are required.  The code to create the <em>TenantRepoFactory</em> is as follows:</p>
                         <pre><code class="java">
 public void connectToIdentityXServer() {
   try {
@@ -406,11 +407,12 @@ public void connectToIdentityXServer() {
   }
 }
                         </code></pre>
-                        <p>The location of the IdentityX system, that is, its URL is contained in the <em>credential.properties</em> file.  Thus if at any stage the location of the IdentityX server should change, the <em>credential.properties</em> file must be updated with the new location.</p>
+                        <p>The location of the IdentityX system, that is, its URL is contained in the <em>credential.properties</em> file.  Therefore if at any stage the location of the IdentityX server should change, the <em>credential.properties</em> file must be updated with the new location.</p>
                         <p>The Java SDK will automatically sign requests to and verify responses from the server using the shared keys established when the token was created.</p>
 
                         <h2>3.3 Connecting to IdentityX with other languages</h2>
-                        <p>In many of the examples below, sample REST requests are provided in addition to the Java SDK sample code.  REST requests cannot be sent to the IdentityX server without the associated signature.  Daon has provided documentation and sample Java code for creating the signature on a REST request and for verifying the signature on the response from the server.  This code can be ported to other languages to enable communication to the IdentityX server from those languages.</p>
+                        <p>In many of the examples below, sample REST requests are provided in addition to the Java SDK sample code.  REST requests cannot be sent to the IdentityX server without the associated signature.  Daon has provided documentation and sample Java code for creating the signature on a REST request and for verifying the signature on the response from the server.  This code can be ported to other languages to enable communication to the IdentityX server from those languages.  For more details see:
+<a href="images/IdentityX 4.1 QRG - Authenticating to REST Services.pdf" target="_blank">IdentityX 4.2 QRG – Authenticating to REST Services</a></p>
                         
                         <h2>3.4 Finding the Application and Policies in IdentityX</h2>
                         <p>In order to use the Application and Policies created in the previous section within the application, the application will need to find these entities within IdentityX.</p>
@@ -469,7 +471,7 @@ public Application findApplication(String applicationId) throws IdxRestException
                         </code></pre></p>
                         
                         <h3>3.4.2   Finding the Registration/Authentication Policy</h3>
-                        <p>Since the registration/Authentication Policy will be used over and over again, it makes sense to “find” the registration/Authentication Policy once and then hold onto that registration/Authentication Policy for the duration of the processing.</p>
+                        <p>Since the Registration/Authentication Policy will be used over and over again, it makes sense to “find” the Registration/Authentication Policy once and then hold onto that Registration/Authentication Policy for the duration of the processing.</p>
                         <p>To find a Policy within IdentityX, a GET operation is sent to the URL:</p>
                         <p><pre><code>https://tenant.domain.com/IdentityXServices/rest/v1/policies?policyId={value}</code></pre></p>
                         <p><strong>Parameter</strong></p>
@@ -548,7 +550,7 @@ public Policy findPolicy(String policyId) throws IdxRestException {
     "userId": "John.Smith@mail.com"
 }
                         </code></pre></p>
-                                    <p>And the <em>userId</em> must be unique within IdentityX. The <em>userId</em> is important in FIDO as it is the <em>“username”</em> field passed to the FIDO Client and Authenticator and as such displayed to the user.</p>
+                                    <p>And the <em>userId</em> must be unique within IdentityX.</p>
                                     <p>This will, if successful, return a newly created User with many additional attributes as follows:</p>
                                     <p><pre><code class="json">
 {
@@ -662,7 +664,7 @@ public User archiveUser(String userId) throws IdxRestException {
     "registrationId": "John.Smith@mail.com"
 }
                         </code></pre></p>
-                                    <p>And the <em>registrationId</em> must be unique within the application.</p>
+                                    <p>And the <em>registrationId</em> must be unique within the application.  The <em>registrationId</em> is important in FIDO as it is the “username” field passed to the FIDO Client and Authenticator and as such displayed to the user.</p>
                                     <p><strong>Response</strong></p>
                                     <p>This will, if successful, return a newly created Registration with many additional attributes as follows:</p>
                                     <p><pre><code class="json">
@@ -838,12 +840,12 @@ protected RegistrationChallenge addRegistrationChallenge(Registration reg) throw
                                     <p><strong>Processing the Response</strong></p>
                                     <p>The important attributes to note here are the <em>id</em>, the <em>href</em> and the <em>fidoRegistrationRequest</em>.</p>
                                     <ul>
-                                        <li><em>Href</em>: This will be used in subsequent calls to IdentityX.</li>
-                                        <li><em>Id</em>: This can be stored if required</li>
+                                        <li><em>href</em>: This will be used in subsequent calls to IdentityX.</li>
+                                        <li><em>id</em>: This can be stored if required</li>
                                         <li><em>fidoRegistrationRequest</em>: This is to be sent to the user’s device where it is to be passed to the FIDO client. </li>
                                     </ul>
                                     <p>In the sample FIDO application supplied by Daon, the <em>href</em> and the <em>fidoRegistrationRequest</em> are sent, via the Relying Party Server Application to the App. The App calls the FIDO Client passing in the <em>fidoRegistrationRequest</em>. </p>
-                                    <p>Once the <em>fidoRegistrationRequest</em> is sent to the FIDO Client, the user will be asked to accept the registration by either a) register to the authenticator(s) or b) verify on the authenticator(s). </p>
+                                    <p>Once the <em>fidoRegistrationRequest</em> is sent to the FIDO Client, the user will be asked to register the relevant authenticator(s).</p>
                                     <p>Assuming a successful registration by the user, the FIDO client will return a <em>fidoRegistrationResponse</em>, this response and the HREF are sent to the Relying Party Server Application which calls the FIDO Server.</p>
                                     <h2>5.3 Processing the Registration Response</h2>
                                     <p>To have the FIDO Server process the <em>fidoRegistrationResponse</em> from the FIDO Client, the specific <em>RegistrationChallenge</em> must be updated setting the <em>fidoRegistrationResponse</em> to the value returned from the FIDO Client. If this process is successful, it will result in one or more <em>Authenticators</em> being created in IdentityX.</p>
@@ -990,14 +992,14 @@ public AuthenticationRequest createAuthRequest() {
                                     <p><strong>Processing the Response</strong></p>
                                     <p>The important attributes to note here are the <em>id</em>, the <em>href</em> and the <em>fidoAuthenticationRequest</em>.</p>
                                     <ul>
-                                        <li><em>Href</em>: This will be used in subsequent calls to IdentityX.</li>
+                                        <li><em>href</em>: This will be used in subsequent calls to IdentityX.</li>
                                         <li><em>id</em>: This can be stored if required.</li>
                                         <li><em>fidoAuthenticationRequest</em>: This is to be sent to the user’s device where it is to be passed to the FIDO client. </li>
                                     </ul>
                                     <p><strong>Note</strong></p>
                                     <p>In the sample FIDO application supplied by Daon, the <em>href</em> and the <em>fidoAuthenticationRequest</em> are sent, via the Relying Party Server Application to the App. The App calls the FIDO Client passing in the <em>fidoAuthenticationRequest</em>. </p>
-                                    <p>Once the <em>fidoAuthenticationRequest</em> is sent to the FIDO client, the user will be asked to verify on the authenticator(s). </p>
-                                    <p>Assuming a successful verification by the user, the FIDO client will return a <em>fidoAuthenticationResponse</em>, this response and the <em>href</em> are sent to the Relying Party Server Application which calls the FIDO Server.</p>
+                                    <p>Once the <em>fidoAuthenticationRequest</em> is sent to the FIDO client, the user will be asked to verify with the authenticator(s). </p>
+                                    <p>Assuming a successful verification by the user, the FIDO client will return a <em>fidoAuthenticationResponse</em>. This response and the <em>href</em> are sent to the Relying Party Server Application which calls the FIDO Server.</p>
                                     <h2>6.3 Processing the Authentication Response</h2>
                                     <p>To have the FIDO Server process the <em>fidoAuthenticationResponse</em> from the FIDO Client, the specific <em>AuthenticationRequest</em> must be updated setting the <em>fidoAuthenticationResponse</em> to the value returned from the FIDO Client.</p>
                                     <p><pre><code class="json">
@@ -1132,7 +1134,8 @@ public String deleteAuthenticator(String fidoId, String authenticatorId) {
                                         <li><em>fidoDeregistrationRequest</em>: This value should be sent to the FIDO authenticator in order to remove the registration from the authenticator</li>
                                     </ul>
                                     <h2>7.2 Phase 2 – Deregistration on the Device</h2>
-                                    <p>If the device is available then the <em>fidoDeregistrationRequest</em> from the server should be sent to the FIDO Client on the device with the registered authenticator. This is where the difficulty arises. The device may not be available during the deregistration process as an Administrator may be performing the deregistration on behalf of the user if a device is lost or stolen. Alternatively, a user may initiate a deregistration of an authenticator on one device from another device. In these instances, the registration will remain on the user’s authenticator and he/she may attempt to use that registration to re-authenticate to the RPSA. While the FIDO Specification does attempt to rectify this by passing a specific error code 1481 to the FIDO client, not all Clients and authenticators are able to handle this error code and delete the appropriate authenticator.</p>
+                                    <p>If the device is available then the <em>fidoDeregistrationRequest</em> from the server should be sent to the FIDO Client on the device with the registered authenticator. This is where the difficulty arises. The device may not be available during the deregistration process as an Administrator may be performing the deregistration on behalf of the user if a device is lost or stolen.</p>
+                                    <p>Alternatively, a user may initiate a deregistration of an authenticator on one device from another device. In these instances, the registration will remain on the user’s authenticator and he/she may attempt to use that registration to re-authenticate to the RPSA. While the FIDO Specification does attempt to rectify this by passing a specific error code 1481 to the FIDO client, not all Clients and authenticators are able to handle this error code and delete the appropriate authenticator.</p>
                                 </div>
                             </div>
                             <!-- DEREGISTRATION -->
@@ -1499,7 +1502,7 @@ public AuthenticationRequest createImageBasedTransactionConfirmation(User aUser,
                                     <h4>Maven</h4>
                                     <p>The RPSA is built by Maven. Ensure that Maven version 3.3.3 or higher is installed and available on the machine.</p>
                                     <h4>GitHub</h4>
-                                    <p>The RPSA is hosted on GitHub at the following URL: <a href="https://github.com/daoninc/fido-rp-server">https://github.com/daoninc/fido-rp-server</a>. Either clone the repo to your local machine or download the ZIP file.</p>
+                                    <p>The RPSA is hosted on GitHub at the following URL: <a href="https://github.com/daoninc/fido-rp-server" target="_blank">https://github.com/daoninc/fido-rp-server</a>. Either clone the repo to your local machine or download the ZIP file.</p>
                                     <h3>9.1.2   Editing the properties files</h3>
                                     <p>Once the prerequisites have been installed and the RPSA cloned/downloaded, it will need to be configured to work with the current environment and the available IdentityX instance.</p>
                                     <p>To set the details of your particular configuration, edit the following file:</p>
@@ -1507,7 +1510,7 @@ public AuthenticationRequest createImageBasedTransactionConfirmation(User aUser,
                                     <p>Change the following properties:</p>
                                     <ul>
                                         <li><em>fido.application_id</em>=the applicationId of application as created in the section Creating an Application in IdentityX</li>
-                                        <li><em>fido.reg_policy_id</em>=the name of the registration policy as created in the section Creating the Registration Policy</li>
+                                        <li><em>fido.reg_policy_id</em>=the name of the Registration Policy as created in the section Creating the Registration Policy</li>
                                         <li><em>fido.auth_policy_id</em>=the name of the Authentication Policy as created in the section Creating the Authentication Policy</li>
                                         <li><em>fido.keystore.location</em>=the location of the key store containing the wrapping key. The file will be loaded from the class path if no explicit path is provided</li>
                                         <li><em>fido.keystore.password</em>=the password to the key store</li>
@@ -1517,16 +1520,16 @@ public AuthenticationRequest createImageBasedTransactionConfirmation(User aUser,
                                     </ul>
                                     <p>If the <em>keystore</em> and <em>credential.properties</em> file are to be loaded from the JAVA Classpath then they should be placed in the <em>src/main/resources/</em> directory.</p>
                                     <h3>9.1.3   Configuring Logging</h3>
-                                    <p>Logging of the RPSA is directed through <a href="http://logback.qos.ch/">Logback</a>. The configuration file (<em>logback.xml</em>) is located in the <em>src/main/resources</em> directory. The output is directed to the log file <em>Relying_Party.log</em>. To change the location of the logging, the level of logging or to make other changes, the <em>logback.xml</em> file may be edited. Remember that this file will be packaged inside the built JAR, so if any changes are made, the JAR will need to be rebuilt.</p>
+                                    <p>Logging of the RPSA is directed through <a href="http://logback.qos.ch/" target="_blank">Logback</a>. The configuration file (<em>logback.xml</em>) is located in the <em>src/main/resources</em> directory. The output is directed to the log file <em>Relying_Party.log</em>. To change the location of the logging, the level of logging or to make other changes, the <em>logback.xml</em> file may be edited. Remember that this file will be packaged inside the built JAR, so if any changes are made, the JAR will need to be rebuilt.</p>
                                     <h3>9.1.4   Building and Running the Application</h3>
-                                    <p>To run the application, install <a href="https://maven.apache.org/">Maven </a>, set the <em>JAVA_HOME</em>, and from the command line type:</p>
+                                    <p>To run the application, install <a href="https://maven.apache.org/" target="_blank">Maven </a>, set the <em>JAVA_HOME</em>, and from the command line type:</p>
                                     <p><pre><code>mvn install spring-boot:run</code></pre></p>
                                     <p>This will compile, package, and run the application. The package process will create a single JAR file which will contain all the compiled classes, the dependent JARs, and the properties files. </p>
                                     <p>Unless otherwise configured, the application will run on port <em>8080</em> without TLS. To run on a different port, change the <em>server.port</em> setting in the file <em>src/main/resources/application.properties</em>.</p>
                                     <h3>9.1.5   Configure to run with TLS</h3>
                                     <p>To run the RPSA under TLS:</p>
                                     <ol>
-                                        <li>An appropriate public / private key pair must be generated along with a Certificate Signing Request (CSR). The resulting CSR should be signed by a certificate authority whose root certificate is trusted by the device(s). The certificate should be imported to the key store where it can be accessed by the RPSA. For details on how to perform these operations with the Java Keytool, see: <a href="http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html">http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html</a></p>
+                                        <li>An appropriate public / private key pair must be generated along with a Certificate Signing Request (CSR). The resulting CSR should be signed by a certificate authority whose root certificate is trusted by the device(s). The certificate should be imported to the key store where it can be accessed by the RPSA. For details on how to perform these operations with the Java Keytool, see: <a href="http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html" target="_blank">http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html</a></p>
                         </li>
                         <li>Once the keys have been generated and the certificate imported, edit the <em>application.properties</em> file, uncomment the properties detailed below and set the values as follows:
                             <p><pre><code>
@@ -1543,7 +1546,7 @@ server.ssl.keyAlias: {aliasOfThePublicKey}
                         </ol>
                         <h2>9.2 Relying Party App</h2>
                         <p>The Relying Party App is an Android application and is supplied as an Android Studio project and its dependencies are managed using Gradle.</p>
-                        <p>The relying party app can be found at GitHub at the following URL: <a href="https://github.com/daoninc/fido-android-rp-app">https://github.com/daoninc/fido-android-rp-app</a></p>
+                        <p>The relying party app can be found at GitHub at the following URL: <a href="https://github.com/daoninc/fido-android-rp-app" target="_blank">https://github.com/daoninc/fido-android-rp-app</a></p>
                         <p>Clone the repo to your local machine.</p>
                         <p>To build the app, import the app into Android Studio.</p>
                         <h3>9.2.1   Updating Facets</h3>
@@ -1618,7 +1621,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                         <p>Return to the Intro screen.</p>
                         <p><strong>NOTE:</strong> If the device on which you are running does not have a FIDO client or has a FIDO client but does not have any authenticators then the <strong>“Login with FIDO”</strong> button will be disabled.</p>
                         <h3>9.2.3   Connecting from the RPApp to the RPSA</h3>
-                        <p>If the RPSA is running on a locally addressable machine and the RPApp is running on a local device, both the RPSA and the RPApp need to be on the same network to connect. An alternative strategy is to use the Remote Debugging Tools provided in Google Chrome which will allow requests from the Android device to be proxied through the USB port to an attached workstation. See the following Google documentation for more details: <a href="https://developer.chrome.com/devtools/docs/remote-debugging">https://developer.chrome.com/devtools/docs/remote-debugging</a></p>
+                        <p>If the RPSA is running on a locally addressable machine and the RPApp is running on a local device, both the RPSA and the RPApp need to be on the same network to connect. An alternative strategy is to use the Remote Debugging Tools provided in Google Chrome which will allow requests from the Android device to be proxied through the USB port to an attached workstation. See the following Google documentation for more details: <a href="https://developer.chrome.com/devtools/docs/remote-debugging" target="_blank">https://developer.chrome.com/devtools/docs/remote-debugging</a></p>
                         <h3>9.2.4   Creating a New Account</h3>
                         <p>To create a new user, touch the <strong>“New Account”</strong> button. The following screen will appear:</p>
                         <center>
@@ -1660,7 +1663,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                             </a>
                         </center>
                         <h3>9.2.5   Authenticators</h3>
-                        <p>From the <strong>Home</strong> screen touch the <strong>“Authenticators”</strong> button and the following screen will appear with the details of registered authenticators for that account. The list will show all active and inactive authenticators.</p>
+                        <p>From the <strong>Home</strong> screen touch the <strong>“Authenticators”</strong> button and the following screen will appear with the details of registered authenticators for that account. The list will show all active and inactive (archived) authenticators.</p>
                         <center>
                             <a href="#figure25" class="openModal">
                                 <img id="imageresource" src="images/Sample_RPApp_Authenticators_Screen.png" style="height: 50%;border:1px solid black">
@@ -1762,7 +1765,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                             <li>Return <em>fidoDeregistrationRequests</em> – an array of ARCHIVED FIDO authenticator AAID with associated <em>fidoDeregistrationRequests</em> is returned to the RPApp.</li>
                         </ol>
                         <p>On the device, the FIDO Client is called with each of the <em>fidoDeregistrationRequests</em> for matching Authenticators on the device in an attempt to remove registrations.</p>
-                        <p>Once the attempt is remove all the authenticators is complete, the RPApp’s activity finishes and the user is returned to the <strong>Home</strong> screen.</p>
+                        <p>Once the attempt to remove all the authenticators is complete, the RPApp’s activity finishes and the user is returned to the <strong>Home</strong> screen.</p>
                         <h3>9.2.8   Transactions</h3>
                         <p>The FIDO Alliance specifications allow users to view messages from the server and confirm those messages during the authentication process. IdentityX supports authentication transactions but FIDO Authenticators are not required to support transaction confirmation.</p>
                         <p>From the <strong>“Home”</strong> screen, touch <strong>“Transactions”</strong>. The Sample RP App - Transactions Screen will be shown:</p>
@@ -1775,7 +1778,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                         </center>
                         <p><a href="#transactionConfirmation">Section 8</a> describes the four different types of authentications which are supported in the FIDO UAF Specifications. The screen allows the user to test each of these authentication types.</p>
                         <p>Each authentication request from this screen will result in a <em>CreateTransactionAuthRequest</em> being sent to the RPSA . In the RPSA the details of the authentication request are taken and an <em>AuthenticationRequest</em> is created in IdentityX. The only differences between the different authentications (open, step-up, text confirmation and image confirmation) are the attributes set on the <em>AuthenticationRequest</em> object sent to IdentityX.</p>
-                        <h4>Open Authentication</h4>
+                        <h4><strong>Open Authentication</strong></h4>
                         <p>Screen Settings:</p>
                         <center>
                             <table class="table table-striped table-bordered" style="width: 50%;">
@@ -1801,7 +1804,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                         </center>
                         <p><strong>Response:</strong> With these settings an open authentication request is sent to the server. If there is more than one persona registered for this AppID in the authenticator, the user will be requested to select the correct persona.</p>
                         <p><strong>NOTE:</strong> It would be unusual to make an open authentication request when the user has already been authenticated (has a session) but this example is provided for completeness. It would be more usual for a step-up authentication to occur in the context of the user already having been authenticated (having a session).</p>
-                        <h4>Step-up Authentication</h4>
+                        <h4><strong>Step-up Authentication</strong></h4>
                         <p>Screen Settings:</p>
                         <center>
                             <table class="table table-striped table-bordered" style="width: 50%;">
@@ -1826,7 +1829,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                             </table>
                         </center>
                         <p><strong>Response:</strong> With these settings a step-up authentication request is sent to the server. The authenticators should not ask for the user’s persona as the authentication request is created for the specific user.</p>
-                        <h4>Open Transaction Confirmation – Text</h4>
+                        <h4><strong>Open Transaction Confirmation – Text</strong></h4>
                         <p>Screen Settings:</p>
                         <center>
                             <table class="table table-striped table-bordered" style="width: 50%;">
@@ -1852,7 +1855,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                         </center>
                         <p><strong>Response:</strong> With these settings, if the device has an authenticator which supports text based transaction confirmation, then the message is displayed to the user during the authentication process. If there is more than one persona in the authenticator registered for this AppID, the user will be requested to select the correct persona.</p>
                         <p><strong>NOTE:</strong> It would be unusual to make an open text transaction confirmation request when the user has already been authenticated (has a session) but this example is provided for completeness. It would be more usual for a step-up text transaction confirmation to occur in the context of the user having been authenticated already (having a session).</p>
-                        <h4>Step-up Transaction Confirmation – Text</h4>
+                        <h4><strong>Step-up Transaction Confirmation – Text</strong></h4>
                         <p>Screen Settings:</p>
                         <center>
                             <table class="table table-striped table-bordered" style="width: 50%;">
@@ -1877,7 +1880,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                             </table>
                         </center>
                         <p><strong>Response:</strong> With these settings, if the device has an authenticator which supports text based transaction confirmation, then the message is displayed to the user during the authentication process. The authenticators should not ask for the user’s persona as the authentication request is created for the specific user.</p>
-                        <h4>Open Transaction Confirmation – Image</h4>
+                        <h4><strong>Open Transaction Confirmation – Image</strong></h4>
                         <p>Screen Settings:</p>
                         <center>
                             <table class="table table-striped table-bordered" style="width: 50%;">
@@ -1903,7 +1906,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                         </center>
                         <p><strong>Response:</strong> With these settings, if the device has an authenticator which supports image based transaction confirmation, then the image is displayed to the user during the authentication process. If there is more than one persona in the authenticator registered for this AppID, the user will be requested to select the correct persona.</p>
                         <p><strong>NOTE:</strong> It would be unusual to make a general image transaction confirmation request when the user has already been authenticated (has a session) but this example is provided for completeness. It would be more usual for a step-up image transaction confirmation to occur in the context of the user having been authenticated already (having a session).</p>
-                        <h4>Step-up Transaction Confirmation – Image</h4>
+                        <h4><strong>Step-up Transaction Confirmation – Image</strong></h4>
                         <p>Screen Settings:</p>
                         <center>
                             <table class="table table-striped table-bordered" style="width: 50%;">
@@ -1932,7 +1935,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                             <a href="#figure28" class="openModal">
                                 <img id="imageresource" src="images/Sample_RPApp_the_setting_for_Transaction_Confirmation.png" style="height: 50%;border:1px solid black">
                                 <br />
-                                <figcaption>Figure 28: Sample RP App – the setting for Transaction Confirmation</figcaption>
+                                <figcaption>Figure 28: Sample RP App – Selecting an open Transaction Confirmation with Text</figcaption>
                             </a>
                         </center>
                         </div>
@@ -1947,7 +1950,7 @@ Add the following facet to the Facets file in order for the debug app to be trus
                                 <p>One of the most common RPSA errors occurs when Java is installed but the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files have not been applied to the Java installation. This will generally result in exception such as the one below:</p>
                                 <p><pre><code>Caused by: java.security.InvalidKeyException: Illegal key size or default parameters</code></pre></p>
                                 <h3>Resolution</h3>
-                                <p>Download and install the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files</a>.</p>
+                                <p>Download and install the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html" target="_blank">Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files</a>.</p>
                                 <h2>10.2    The Final Challenge Params were not successfully validated</h2>
                                 <p>This error is typically caused when the Facet used by the FIDO Client (as reported in the Final Challenge Parameters) is not a Facet known to the IdentityX server</p>
                                 <h3>Resolution</h3>
@@ -2007,8 +2010,10 @@ Caused by: java.lang.RuntimeException: An exception occurred while attempting to
         at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:300)
         at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBefo...
                         </code></pre>
+                                <h3>Result</h3>
+                                <p>The relying party app cannot connect to IdentityX.</a></p>
                                 <h3>Resolution</h3>
-                                <p>The relying party app cannot connect to IdentityX. The <em>credential.properties</em> is probably incorrect or not correct. <a href="#creatingAToken">Has a new token been created?</a></p>
+                                <p>The <em>credential.properties</em> has probably been incorrectly configured. Ensure a new Token has been created. See <a href="#creatingAToken">Creating a Token</a>.</p>
                             </div>
                         </div>
                         <!-- COMMON ERRORS -->
@@ -2018,13 +2023,13 @@ Caused by: java.lang.RuntimeException: An exception occurred while attempting to
                             <div class="col-lg-12">
                                 <h1>11. Other FIDO Servers</h1>
                                 <h2>11.1    FIDO Alliance UAF Specifications</h2>
-                                <p>The <a href="https://fidoalliance.org/">FIDO Alliance</a> <a href="https://fidoalliance.org/specifications/overview/">UAF Specifications</a> define the format of the messages which go between the FIDO Client and the FIDO Server.  The specifications do not determine how these messages are sent to a FIDO Server by a Relying Party.  This is an important distinction as the FIDO Alliance did not want to create a “Server API” and thus impose technology constraints on the FIDO Server implementers thus allowing them to select the most appropriate communications protocols, security schemes etc. to meet their requirements.</p>
+                                <p>The <a href="https://fidoalliance.org/" target="_blank">FIDO Alliance</a> <a href="https://fidoalliance.org/specifications/overview/" target="_blank">UAF Specifications</a> define the format of the messages which go between the FIDO Client and the FIDO Server.  The specifications do not determine how these messages are sent to a FIDO Server by a Relying Party.  This is an important distinction as the FIDO Alliance did not want to create a “Server API” and thus impose technology constraints on the FIDO Server implementers thus allowing them to select the most appropriate communications protocols, security schemes etc. to meet their requirements.</p>
                                 <h2>11.2    Other FIDO Server Implementations</h2>
                                 <p>In this document, the IdentityX server interface is described.  This is Daon's proprietary interface to IdentityX.  To use the Relying Party Server Application with a different FIDO Server, the code of the RPSA will need to be updated to integrate with the interface to the new FIDO Server.</p>
 							</div>
                         </div>
                     </div>
-                    <center><strong>© 2015 Daon Holdings Limited. All rights reserved.</strong></center>
+                    <center><strong>© 2016 Daon Holdings Limited. All rights reserved.</strong></center>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
